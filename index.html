@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bless | Editorial Concepts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <nav class="editorial-nav">
+        <div class="nav-brand">Bless &bull; The Best</div>
+        <div class="nav-desc">Concept Proposals / 2026</div>
+    </nav>
+
+    <main class="editorial-container">
+        <header class="editorial-header">
+            <div class="pink-aura"></div>
+            <h1>Hello, I'm Bless <em>the best...</em></h1>
+            <div class="header-intro">
+                <p>I don't just manage accounts;<br>I <em>build</em> them.</p>
+            </div>
+            <div class="header-details">
+                <p>I handle all of it: ideate, create, edit, and publish strategy, copy, graphics, video, photography. Below are my concept proposals curated for modern beauty brands.</p>
+            </div>
+            
+            <!-- Abstract editorial accent shape mimicking a cutout but high-end -->
+            <div class="abstract-accent"></div>
+        </header>
+
+        <section class="editorial-list">
+            <a href="tarte/index.html" class="list-item">
+                <span class="item-number">01</span>
+                <img class="brand-logo" src="tarte.png" alt="Tarte Logo">
+                <span class="item-category">Campy & Vibrant</span>
+                <div class="hover-reveal" style="background: var(--clr-pink);"></div>
+            </a>
+
+            <a href="farmacy/index.html" class="list-item">
+                <span class="item-number">02</span>
+                <img class="brand-logo" src="farmacy.png" alt="FARMACY Logo">
+                <span class="item-category">Nature & Science</span>
+                <div class="hover-reveal" style="background: var(--clr-burgundy);"></div>
+            </a>
+
+            <a href="rem/index.html" class="list-item">
+                <span class="item-number">03</span>
+                <img class="brand-logo" src="rem.png" alt="r.e.m. beauty Logo">
+                <span class="item-category">Y2K Cybercore</span>
+                <div class="hover-reveal" style="background: var(--clr-soft-pink);"></div>
+            </a>
+
+            <a href="hero/index.html" class="list-item">
+                <span class="item-number">04</span>
+                <img class="brand-logo" src="hero.png" alt="hero cosmetics Logo">
+                <span class="item-category">Teen Magazine</span>
+                <div class="hover-reveal" style="background: var(--clr-pink);"></div>
+            </a>
+
+            <a href="elf/index.html" class="list-item">
+                <span class="item-number">05</span>
+                <img class="brand-logo" src="elf.png" alt="e.l.f. Logo">
+                <span class="item-category">Bold & Accessible</span>
+                <div class="hover-reveal" style="background: var(--clr-burgundy);"></div>
+            </a>
+        </section>
+
+        <footer class="editorial-footer">
+            <div class="marquee-wrapper">
+                <a href="http://fuckshitpoet.com" target="_blank" class="marquee-link">
+                    <div class="marquee">
+                        <span>meet the artist &mdash;</span>
+                        <span>meet the artist &mdash;</span>
+                        <span>meet the artist &mdash;</span>
+                        <span>meet the artist &mdash;</span>
+                    </div>
+                </a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Smooth entrance for list items
+        const listItems = document.querySelectorAll('.list-item');
+        listItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1 + 0.5}s`;
+            
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Hover reveal follow mouse effect
+        listItems.forEach(item => {
+            const reveal = item.querySelector('.hover-reveal');
+            item.addEventListener('mousemove', (e) => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                reveal.style.transform = `translate(${x - 150}px, ${y - 150}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hero cosmetics | Concept Proposal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="../index.html" class="back-btn">&larr; Go Back</a>
+        <div class="logo">hero</div>
+    </nav>
+
+    <main class="magazine-container">
+        <div class="magazine-cover">
+            <div class="mag-header">
+                <h1>HERO</h1>
+                <span class="mag-issue">ISSUE 01 | SUMMER 2026</span>
+            </div>
+            
+            <div class="mag-headlines">
+                <div class="headline left-top">
+                    <h2>THE SLEEPOVER SECRETS!</h2>
+                    <p>What they don't tell you...</p>
+                </div>
+                
+                <div class="headline right-bottom">
+                    <h2 class="highlight">Y2K IS BACK</h2>
+                    <p>Get the look!</p>
+                </div>
+            </div>
+
+            <div class="center-quiz">
+                <div class="quiz-badge">New!</div>
+                <h2>The Ultimate Skin Quiz</h2>
+                <p>Find out your perfect routine with hero cosmetics.</p>
+                <button class="start-quiz-btn" id="startBtn">Take the Quiz &rarr;</button>
+            </div>
+        </div>
+
+        <div class="quiz-modal" id="quizModal">
+            <div class="quiz-content">
+                <button class="close-btn" id="closeBtn">&times;</button>
+                <div class="quiz-step active" id="step1">
+                    <h3>Q1: What's your Friday night vibe?</h3>
+                    <div class="options">
+                        <button class="opt-btn" onclick="nextStep(2)">A. Sleepover with besties 💅</button>
+                        <button class="opt-btn" onclick="nextStep(2)">B. Binge watching movies 🍿</button>
+                        <button class="opt-btn" onclick="nextStep(2)">C. Reading a good book 📚</button>
+                    </div>
+                </div>
+                
+                <div class="quiz-step" id="step2">
+                    <h3>Q2: How does your skin usually feel by noon?</h3>
+                    <div class="options">
+                        <button class="opt-btn" onclick="nextStep(3)">A. Super oily, need a blot!</button>
+                        <button class="opt-btn" onclick="nextStep(3)">B. Dry and tight 🏜️</button>
+                        <button class="opt-btn" onclick="nextStep(3)">C. Pretty normal, actually.</button>
+                    </div>
+                </div>
+                
+                <div class="quiz-step" id="step3">
+                    <h3>Your Perfect Routine!</h3>
+                    <div class="routine-result">
+                        <div class="product-card">
+                            <div class="product-img mighty-patch"></div>
+                            <h4>Mighty Patch</h4>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-img rescue-balm"></div>
+                            <h4>Rescue Balm</h4>
+                        </div>
+                    </div>
+                    <p>Because you don't need a magazine, you've got it all online!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,333 @@
+:root {
+    --rem-silver: #c0c0c0;
+    --rem-lavender: #e6e6fa;
+    --rem-dark: #0a0a12;
+    --rem-neon: #b388ff;
+    --text-main: #e6e6fa;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--rem-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Cyber Overlay & Scanlines */
+.cyber-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(10,10,18,0.8) 100%);
+    pointer-events: none;
+    z-index: 10;
+}
+
+.scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 11;
+    position: absolute;
+    pointer-events: none;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(179,136,255,0.1) 50%, rgba(0,0,0,0) 100%);
+    opacity: 0.1;
+    animation: scanline 6s linear infinite;
+}
+
+@keyframes scanline {
+    0% { top: -100px; }
+    100% { top: 100%; }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 3rem;
+    position: relative;
+    z-index: 20;
+    border-bottom: 1px solid rgba(179,136,255,0.2);
+}
+
+.back-btn {
+    color: var(--rem-neon);
+    text-decoration: none;
+    font-family: monospace;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 200;
+    letter-spacing: 4px;
+    color: var(--rem-silver);
+}
+
+.cyber-container {
+    padding: 4rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 20;
+}
+
+/* Glitch Hero */
+.hero-section {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.glitch-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    color: white;
+    letter-spacing: 5px;
+    line-height: 1;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--rem-neon);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00ffff;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 86px, 0); }
+    5% { clip: rect(61px, 9999px, 8px, 0); }
+    10% { clip: rect(54px, 9999px, 20px, 0); }
+    15% { clip: rect(8px, 9999px, 86px, 0); }
+    20% { clip: rect(25px, 9999px, 12px, 0); }
+    25% { clip: rect(72px, 9999px, 59px, 0); }
+    30% { clip: rect(80px, 9999px, 3px, 0); }
+    35% { clip: rect(12px, 9999px, 40px, 0); }
+    40% { clip: rect(22px, 9999px, 38px, 0); }
+    45% { clip: rect(11px, 9999px, 92px, 0); }
+    50% { clip: rect(55px, 9999px, 100px, 0); }
+    55% { clip: rect(98px, 9999px, 52px, 0); }
+    60% { clip: rect(83px, 9999px, 10px, 0); }
+    65% { clip: rect(10px, 9999px, 98px, 0); }
+    70% { clip: rect(25px, 9999px, 54px, 0); }
+    75% { clip: rect(59px, 9999px, 63px, 0); }
+    80% { clip: rect(48px, 9999px, 19px, 0); }
+    85% { clip: rect(96px, 9999px, 44px, 0); }
+    90% { clip: rect(31px, 9999px, 12px, 0); }
+    95% { clip: rect(65px, 9999px, 78px, 0); }
+    100% { clip: rect(20px, 9999px, 34px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(65px, 9999px, 100px, 0); }
+    5% { clip: rect(52px, 9999px, 74px, 0); }
+    10% { clip: rect(79px, 9999px, 85px, 0); }
+    15% { clip: rect(75px, 9999px, 5px, 0); }
+    20% { clip: rect(67px, 9999px, 61px, 0); }
+    25% { clip: rect(14px, 9999px, 79px, 0); }
+    30% { clip: rect(1px, 9999px, 38px, 0); }
+    35% { clip: rect(86px, 9999px, 30px, 0); }
+    40% { clip: rect(12px, 9999px, 4px, 0); }
+    45% { clip: rect(63px, 9999px, 36px, 0); }
+    50% { clip: rect(4px, 9999px, 81px, 0); }
+    55% { clip: rect(27px, 9999px, 82px, 0); }
+    60% { clip: rect(59px, 9999px, 42px, 0); }
+    65% { clip: rect(56px, 9999px, 2px, 0); }
+    70% { clip: rect(84px, 9999px, 84px, 0); }
+    75% { clip: rect(91px, 9999px, 31px, 0); }
+    80% { clip: rect(31px, 9999px, 89px, 0); }
+    85% { clip: rect(14px, 9999px, 19px, 0); }
+    90% { clip: rect(42px, 9999px, 20px, 0); }
+    95% { clip: rect(72px, 9999px, 5px, 0); }
+    100% { clip: rect(93px, 9999px, 13px, 0); }
+}
+
+.subtitle {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--rem-silver);
+    font-family: monospace;
+    text-transform: uppercase;
+}
+
+/* Mirror Section Window */
+.mirror-section {
+    display: flex;
+    justify-content: center;
+}
+
+.window {
+    width: 100%;
+    max-width: 900px;
+    background: rgba(20,20,30,0.8);
+    border: 1px solid var(--rem-neon);
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(179,136,255,0.2), inset 0 0 20px rgba(179,136,255,0.1);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.window-header {
+    background: rgba(179,136,255,0.2);
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rem-neon);
+    font-family: monospace;
+}
+
+.window-controls i {
+    font-style: normal;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.window-controls i:hover {
+    color: var(--rem-neon);
+}
+
+.window-content {
+    display: flex;
+    height: 500px;
+}
+
+.camera-feed {
+    flex: 2;
+    background: #050508;
+    position: relative;
+    border-right: 1px solid var(--rem-neon);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.face-placeholder {
+    width: 250px;
+    height: 350px;
+    border: 1px dashed rgba(255,255,255,0.3);
+    position: relative;
+    border-radius: 50% 50% 40% 40%;
+}
+
+.focus-box {
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    border: 1px solid var(--rem-neon);
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    box-shadow: 0 0 10px var(--rem-neon);
+    transition: background 0.5s;
+}
+
+.rec {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: red;
+    font-family: monospace;
+    animation: flash 1s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.side-panel {
+    flex: 1;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0,0.5);
+}
+
+.side-panel h3 {
+    font-weight: 200;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    color: var(--rem-silver);
+}
+
+.product-btn {
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.product-btn:hover {
+    border-color: var(--rem-neon);
+    background: rgba(179,136,255,0.1);
+}
+
+.indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: var(--rem-silver);
+}
+
+.product-btn[data-color="#ff99cc"] .indicator { background: #ff99cc; }
+.product-btn[data-color="#cc99ff"] .indicator { background: #cc99ff; }
+
+.product-btn.active {
+    border-color: var(--rem-neon);
+    background: rgba(179,136,255,0.2);
+}
+
+.info-box {
+    margin-top: auto;
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: #888;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .window-content { flex-direction: column; height: auto; }
+    .camera-feed { height: 300px; border-right: none; border-bottom: 1px solid var(--rem-neon); }
+}

@@ -1,0 +1,354 @@
+:root {
+    --hero-blue: #0047bb;
+    --hero-red: #f4364c;
+    --hero-yellow: #ffc20e;
+    --hero-light: #fef0d9;
+    --text-main: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--hero-light);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.back-btn {
+    color: var(--hero-blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid var(--hero-blue);
+    box-shadow: 2px 2px 0 var(--hero-blue);
+    transition: all 0.2s;
+}
+
+.back-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 var(--hero-blue);
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--hero-red);
+    letter-spacing: -2px;
+}
+
+/* Magazine Layout */
+.magazine-container {
+    padding: 5rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    perspective: 1000px;
+}
+
+.magazine-cover {
+    width: 100%;
+    max-width: 800px;
+    height: 90vh;
+    min-height: 700px;
+    background: #fff;
+    border: 10px solid white;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1), inset 0 0 50px rgba(0,0,0,0.05);
+    position: relative;
+    padding: 2rem;
+    overflow: hidden;
+    transform: rotateY(-5deg) rotateX(2deg);
+    transition: transform 0.5s;
+    background-image: repeating-linear-gradient(45deg, rgba(255,194,14,0.05) 0, rgba(255,194,14,0.05) 10px, transparent 10px, transparent 20px);
+}
+
+.magazine-cover:hover {
+    transform: rotateY(0deg) rotateX(0deg);
+}
+
+.mag-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.mag-header h1 {
+    font-size: clamp(6rem, 15vw, 12rem);
+    font-weight: 900;
+    color: var(--hero-blue);
+    line-height: 0.8;
+    letter-spacing: -5px;
+    margin-bottom: 0.5rem;
+    text-shadow: 4px 4px 0 var(--hero-yellow);
+}
+
+.mag-issue {
+    background: var(--hero-red);
+    color: white;
+    padding: 0.2rem 1rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.mag-headlines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.headline {
+    position: absolute;
+    background: white;
+    padding: 1rem;
+    border: 3px solid var(--text-main);
+    box-shadow: 4px 4px 0 var(--hero-red);
+    transform: rotate(-5deg);
+}
+
+.left-top {
+    top: 25%;
+    left: 5%;
+    max-width: 250px;
+}
+
+.right-bottom {
+    bottom: 15%;
+    right: 5%;
+    max-width: 200px;
+    transform: rotate(3deg);
+}
+
+.headline h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.headline.highlight h2 {
+    background: var(--hero-yellow);
+    display: inline-block;
+    padding: 0 0.5rem;
+}
+
+.headline p {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.center-quiz {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--hero-blue);
+    color: white;
+    padding: 3rem;
+    text-align: center;
+    border-radius: 50%;
+    width: 350px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    box-shadow: 0 20px 40px rgba(0,71,187,0.3);
+}
+
+.quiz-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--hero-red);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    transform: rotate(15deg);
+    font-size: 1.2rem;
+}
+
+.center-quiz h2 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.center-quiz p {
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.start-quiz-btn {
+    background: var(--hero-yellow);
+    color: var(--hero-blue);
+    border: none;
+    padding: 1rem 2rem;
+    font-weight: 900;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-family: 'Outfit', sans-serif;
+}
+
+.start-quiz-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Quiz Modal */
+.quiz-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.quiz-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.quiz-content {
+    background: var(--hero-light);
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    border: 5px solid var(--hero-blue);
+    box-shadow: 10px 10px 0 var(--hero-red);
+    text-align: center;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--hero-blue);
+    font-weight: 900;
+}
+
+.quiz-step {
+    display: none;
+}
+
+.quiz-step.active {
+    display: block;
+    animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.quiz-step h3 {
+    font-size: 2rem;
+    color: var(--hero-blue);
+    margin-bottom: 2rem;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.opt-btn {
+    background: white;
+    border: 2px solid var(--hero-blue);
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+}
+
+.opt-btn:hover {
+    background: var(--hero-blue);
+    color: white;
+    transform: translateX(10px);
+}
+
+.routine-result {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.product-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 2px solid var(--hero-red);
+}
+
+.product-img {
+    width: 100px;
+    height: 100px;
+    background: #eee;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+}
+
+.mighty-patch { background: var(--hero-blue); }
+.rescue-balm { background: var(--hero-yellow); }
+
+@media (max-width: 768px) {
+    .headline { display: none; }
+    .mag-header h1 { font-size: 5rem; }
+    .center-quiz { width: 300px; height: 300px; }
+}
