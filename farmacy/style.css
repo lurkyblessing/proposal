@@ -547,29 +547,7 @@ nav {
 .rv3 { left: 500px; }
 .rv4 { left: 750px; }
 
-/* =====================================================
-   FARM GRID (Isometric 3D dirt plots — bottom left)
-   ===================================================== */
-.scenery-container {
-    position: absolute;
-    width: 350px;
-    height: 350px;
-    bottom: -50px;
-    left: -50px;
-    transform: rotateX(60deg) rotateZ(-45deg);
-    transform-style: preserve-3d;
-    z-index: 5;
-}
-
-.farm-grid {
-    position: absolute;
-    bottom: 80px;
-    right: 80px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5px;
-    transform-style: preserve-3d;
-}
+/* Farm plots are dynamically created inside #farm-grid */
 
 .plot {
     width: 65px;
@@ -621,75 +599,88 @@ nav {
 }
 
 /* =====================================================
-   TOWN BUILDINGS
-   
-   The isometric road grid projects onto screen as a 
-   diamond pattern. Buildings sit inside the diamond 
-   blocks between roads.
-   
-   Grid rows project roughly at these screen Y positions:
-     Row 0 (top): ~120px
-     Row 1: ~240px  
-     Row 2: ~360px
-     Row 3 (bottom): ~480px
-   
-   Grid cols project at roughly:
-     Col 0 (left): ~200px
-     Col 1: ~380px
-     Col 2: ~560px
-     Col 3 (right): ~740px
-   
-   Blocks sit in the diamond centers between intersections.
+   TOWN BLOCKS & BUILDINGS
    ===================================================== */
-.asset-building {
+/* The blocks represent the empty space between the roads */
+.block {
     position: absolute;
+    width: 210px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-style: preserve-3d;
+}
+
+/* 9 City Blocks inside the 800x650 road grid */
+.b-0-0 { left: 40px; top: 40px; }
+.b-1-0 { left: 290px; top: 40px; }
+.b-2-0 { left: 540px; top: 40px; }
+
+.b-0-1 { left: 40px; top: 240px; }
+.b-1-1 { left: 290px; top: 240px; }
+.b-2-1 { left: 540px; top: 240px; }
+
+.b-0-2 { left: 40px; top: 440px; }
+.b-1-2 { left: 290px; top: 440px; }
+.b-2-2 { left: 540px; top: 440px; }
+
+/* 
+   REVERSE TRANSFORM: 
+   Because the road grid is rotated into isometric view (rotateX 60, rotateZ -45),
+   anything flat inside it lies on the ground.
+   To make 2D sprite buildings "stand up" and face the camera, we apply the 
+   exact inverse rotation.
+*/
+.stand-up {
+    transform-origin: center center;
+    transform: rotateZ(45deg) rotateX(-60deg) scale(1.4); /* Scaled slightly for prominence */
+}
+
+/* Base style for all buildings */
+.asset-building {
     pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.35));
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
     transition: transform 0.3s;
 }
 
-/* Row 0-1, Col 0-1: Top-left block — Library */
-.asset-library    { width: 200px; top: 80px; left: 150px; z-index: 10; }
+/* Custom sizes for each building to fit its block */
+.asset-library { width: 180px; }
+.asset-factory { width: 140px; }
+.asset-townhouse { width: 110px; }
+.asset-duplex { width: 110px; }
+.asset-bungalow { width: 100px; }
 
-/* Row 0-1, Col 1-2: Top-center block — Factory */
-.asset-factory    { width: 150px; top: 50px;  left: 450px; z-index: 10; transform: scaleX(-1); }
-
-/* Row 1-2, Col 0-1: Mid-left block — Townhouse */
-.asset-townhouse  { width: 120px; top: 220px; left: 50px; z-index: 20; }
-
-/* Row 0-1, Col 2-3: Top-right block — Duplex */
-.asset-duplex     { width: 120px; top: 120px; left: 700px; z-index: 15; }
-
-/* Row 1-2, Col 2-3: Mid-right block — Bungalow */
-.asset-bungalow   { width: 110px; top: 300px; left: 680px; z-index: 30; }
-
-/* =====================================================
-   FARM BUILDINGS (Bottom-left corner)
-   ===================================================== */
+/* Farm Area assets */
 .asset-barn {
-    position: absolute;
-    width: 160px;
-    top: 420px;
-    left: 20px;
-    z-index: 40;
+    width: 140px;
     pointer-events: none;
-    filter: drop-shadow(0 8px 10px rgba(0,0,0,0.25));
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
-    position: absolute;
-    width: 140px;
-    top: 460px;
-    left: 200px;
-    z-index: 45;
+    width: 120px;
     cursor: pointer;
-    filter: drop-shadow(0 6px 8px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.35));
     transition: transform 0.2s, filter 0.2s;
 }
 
 .asset-lab:hover {
     transform: scale(1.05) translateY(-5px);
-    filter: drop-shadow(0 12px 10px rgba(0,0,0,0.4)) brightness(1.1);
+    filter: drop-shadow(0 20px 15px rgba(0,0,0,0.45)) brightness(1.1);
+}
+
+/* The Farm Grid itself sits directly flat on the ground in the bottom right block */
+#farm-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    padding: 15px;
+    transform-style: preserve-3d;
 }
 
 /* Floating Dock UI (Inventory) */
