@@ -491,108 +491,186 @@ nav {
 }
 
 /* Terrain & Isometric Farm Grid */
+/* Township Scenery & 3D Environment */
 .township-terrain {
     flex: 2;
-    background: radial-gradient(circle at center, #aed581 0%, #689f38 100%);
+    background: #81c784; /* Grassy base */
     border-radius: 20px;
-    border: 4px solid #558b2f;
-    box-shadow: inset 0 0 50px rgba(0,0,0,0.2), 0 10px 20px rgba(0,0,0,0.1);
+    border: 4px solid #388e3c;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.1);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     overflow: hidden;
-    min-height: 400px;
+    min-height: 500px;
 }
 
-.township-terrain::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
-    background-size: 40px 40px;
-    transform: rotateX(60deg) rotateZ(-45deg);
-    opacity: 0.5;
+.scenery-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    transform: rotateX(60deg) rotateZ(-45deg); /* Isometric world */
+    transform-style: preserve-3d;
 }
 
+/* 3D Farm Grid (Dirt Mounds) */
 .farm-grid {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0; /* Absolutely no gaps */
-    background: #795548; /* Dirt background */
-    padding: 0;
-    border-radius: 12px;
-    border: 6px solid #4e342e; /* Dark dirt border for the whole field */
-    transform: rotateX(60deg) rotateZ(-45deg); /* ISOMETRIC MAGIC */
+    gap: 8px; /* Distinct individual plots */
     transform-style: preserve-3d;
-    z-index: 2;
-    box-shadow: -6px 6px 0 #3e2723, -15px 15px 30px rgba(0,0,0,0.4); /* Chunky 3D depth for the field */
 }
 
 .plot {
-    width: 100px;
-    height: 100px;
-    background: #795548; /* Tilled dirt color */
-    border-radius: 0; /* Square to be seamless */
+    width: 90px;
+    height: 90px;
+    background: #6d4c41; /* Dirt top surface */
+    border-radius: 8px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    /* Simulate tilled rows with repeating linear gradient */
-    background-image: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 18px,
-        rgba(0,0,0,0.1) 18px,
-        rgba(0,0,0,0.1) 20px
-    );
-    border: 1px solid rgba(93, 64, 55, 0.5); /* Very subtle internal grid lines */
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.2); /* Deepen each plot slightly */
-    transition: filter 0.2s;
+    cursor: pointer;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4);
+    transform: translateZ(10px); /* Raise above grass */
+    transform-style: preserve-3d;
+    transition: filter 0.2s, transform 0.1s;
 }
 
 .plot:hover, .plot.hover-target {
-    filter: brightness(1.15); /* Highlight the plot being swiped over */
+    filter: brightness(1.2);
 }
 
-.plot::after {
-    /* Removed the individual 3D block pseudo-element to make it a flat field */
-    display: none;
+.plot:active {
+    transform: translateZ(5px);
 }
 
-/* Stand elements upright against the isometric rotation */
-.upright-element {
-    transform: rotateZ(45deg) rotateX(-60deg);
-    z-index: 10;
+/* The thick 3D dirt underneath the mound */
+.plot::before {
+    content: '';
     position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #4e342e; /* Darker dirt side */
+    border-radius: 8px;
+    transform: translateZ(-10px);
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5); /* Drop shadow on the grass */
+    z-index: -1;
 }
 
-.seed-hint {
-    font-size: 0.8rem;
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    transform: rotateZ(45deg) rotateX(-60deg);
-    z-index: 10;
-    pointer-events: none;
+.dirt-mound {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 15px,
+        rgba(0,0,0,0.1) 15px,
+        rgba(0,0,0,0.1) 20px
+    );
 }
 
+/* Isometric Lab (Farmhouse/Barn) */
+.isometric-lab {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    width: 120px;
+    height: 160px;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.isometric-lab:hover {
+    transform: scale3d(1.05, 1.05, 1.05);
+}
+
+.lab-base .face {
+    position: absolute;
+    background: #e53935; /* Classic Barn Red */
+    border: 2px solid #b71c1c;
+}
+
+.lab-base .front {
+    width: 120px; height: 100px;
+    transform: rotateX(-90deg) translateZ(100px);
+    transform-origin: bottom;
+}
+
+.lab-base .left {
+    width: 160px; height: 100px;
+    transform: rotateY(90deg) rotateX(-90deg) translateZ(120px) translateX(-160px);
+    transform-origin: bottom left;
+    background: #c62828; /* Darker shaded side */
+}
+
+.lab-base .top {
+    width: 120px; height: 160px;
+    background: #fafafa; /* Lab-like flat roof element */
+    transform: translateZ(100px);
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Solar Panel on the Barn to make it a "Lab" */
+.solar-panel {
+    width: 80px; height: 120px;
+    background: #1976d2;
+    border: 2px solid #0d47a1;
+    background-image: linear-gradient(rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* Dirt Path connecting lab and farm */
+.dirt-path {
+    position: absolute;
+    top: 260px;
+    left: 160px;
+    width: 100px;
+    height: 150px;
+    background: #a1887f;
+    border-radius: 20px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Isometric Scenery Sprites (Upright) */
+.tree, .rock {
+    position: absolute;
+    font-size: 3rem;
+    transform: rotateZ(45deg) rotateX(-60deg) translateY(-20px); /* Counter-rotate to stand upright */
+    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.4));
+    transform-style: preserve-3d;
+}
+
+.tree-1 { top: 50px; left: 300px; font-size: 4rem; }
+.tree-2 { top: 300px; left: 50px; font-size: 3.5rem; }
+.tree-3 { bottom: 100px; left: 150px; }
+.tree-4 { top: 80px; right: 100px; font-size: 4.5rem; }
+.rock-1 { top: 200px; left: 280px; font-size: 2rem; }
+
+/* Plants logic */
 .plot.growing {
     cursor: wait;
 }
 
 .progress-bar {
-    width: 80px;
-    height: 12px;
+    width: 60px;
+    height: 10px;
     background: rgba(0,0,0,0.5);
     border: 2px solid white;
-    border-radius: 6px;
+    border-radius: 5px;
     position: absolute;
-    bottom: 20px;
+    bottom: -15px;
     overflow: hidden;
-    transform: rotateZ(45deg) rotateX(-60deg) translateY(-30px);
+    transform: rotateZ(45deg) rotateX(-60deg);
     z-index: 20;
 }
 
@@ -615,12 +693,12 @@ nav {
 }
 
 .plot.grown {
-    font-size: 4rem;
     cursor: pointer;
 }
 
-.plot.grown::before {
+.plot.grown::after {
     content: attr(data-emoji);
+    font-size: 4rem;
     position: absolute;
     transform: rotateZ(45deg) rotateX(-60deg) translateY(-20px);
     z-index: 10;
