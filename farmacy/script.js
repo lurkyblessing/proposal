@@ -62,8 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Grow over 3 seconds
             setTimeout(() => {
                 plot.className = `plot grown ${type}`;
-                plot.innerHTML = type === 'moringa' ? '🌿' : '🥭'; // Mango as proxy for papaya visually
+                plot.innerHTML = ''; 
                 plot.dataset.type = type;
+                plot.dataset.emoji = type === 'moringa' ? '🌿' : '🥭';
             }, 3000);
         } else if (plot.classList.contains('grown')) {
             // Harvest
@@ -75,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plot.className = 'plot empty';
             plot.innerHTML = '<span class="seed-hint">Click to Plant</span>';
             delete plot.dataset.type;
+            delete plot.dataset.emoji;
         }
     }
 
