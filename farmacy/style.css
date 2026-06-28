@@ -502,11 +502,11 @@ nav {
     position: absolute;
     width: 600px;
     height: 600px;
-    top: 600px;
-    left: 200px;
+    top: 800px;
+    left: 150px;
     transform: rotateX(60deg) rotateZ(-45deg); /* Isometric world */
     transform-style: preserve-3d;
-    z-index: 50; /* Farm grid sits fairly low */
+    z-index: 850; /* Farm grid sits behind the Lab (950) but in front of some higher elements */
 }
 
 /* 3D Farm Grid (Dirt Mounds) */
@@ -582,29 +582,29 @@ nav {
 Z-Index rule for Isometric 2D: 
 Elements lower on the Y-axis (higher top value) must have a higher z-index.
 */
-.asset-library { width: 500px; top: 50px; left: 550px; z-index: 10; }
-.asset-factory { width: 400px; top: 150px; left: 1050px; z-index: 20; transform: scaleX(-1); /* Face left */ }
-.asset-townhouse { width: 280px; top: 350px; left: 400px; z-index: 40; }
-.asset-duplex { width: 280px; top: 480px; left: 700px; z-index: 50; }
-.asset-bungalow { width: 250px; top: 600px; left: 950px; z-index: 60; }
+.asset-library { width: 500px; top: 50px; left: 300px; z-index: 50; }
+.asset-factory { width: 400px; top: 250px; left: 800px; z-index: 250; transform: scaleX(-1); }
+.asset-townhouse { width: 320px; top: 300px; left: 100px; z-index: 400; }
+.asset-duplex { width: 320px; top: 500px; left: 400px; z-index: 600; }
+.asset-bungalow { width: 280px; top: 700px; left: 800px; z-index: 800; }
 
 /* Relocate Farm to the bottom-left corner */
 .asset-barn {
     position: absolute;
     width: 450px;
-    top: 650px;
-    left: 50px;
-    z-index: 70;
+    top: 700px;
+    left: 0px;
+    z-index: 800;
     pointer-events: none;
     filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
     position: absolute;
-    width: 300px;
-    top: 750px;
-    left: 450px;
-    z-index: 80;
+    width: 320px;
+    top: 850px;
+    left: 400px;
+    z-index: 950;
     cursor: pointer;
     filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
     transition: transform 0.2s, filter 0.2s;
@@ -619,19 +619,21 @@ Elements lower on the Y-axis (higher top value) must have a higher z-index.
 .road-tile {
     position: absolute;
     width: 250px; /* Big enough to link the town */
-    z-index: 2; /* Below buildings, above grass */
     pointer-events: none;
 }
 
-/* Creating a diagonal road path from Top-Left to Bottom-Right */
-/* Isometric diagonal roughly follows dx = 2 * dy */
-.road-1 { top: 250px; left: 300px; }
-.road-2 { top: 325px; left: 450px; }
-.road-3 { top: 400px; left: 600px; }
-.road-4 { top: 475px; left: 750px; }
-.road-5 { top: 550px; left: 900px; }
-.road-6 { top: 625px; left: 1050px; }
-.road-7 { top: 700px; left: 1200px; }
+/* Creating a connected diagonal road path from Top-Left to Bottom-Right */
+/* Isometric diagonal strictly steps dx = 124, dy = 62 */
+.road-1 { top: 100px; left: 100px; z-index: 100; }
+.road-2 { top: 162px; left: 224px; z-index: 162; }
+.road-3 { top: 224px; left: 348px; z-index: 224; }
+.road-4 { top: 286px; left: 472px; z-index: 286; }
+.road-5 { top: 348px; left: 596px; z-index: 348; }
+.road-6 { top: 410px; left: 720px; z-index: 410; }
+.road-7 { top: 472px; left: 844px; z-index: 472; }
+.road-8 { top: 534px; left: 968px; z-index: 534; }
+.road-9 { top: 596px; left: 1092px; z-index: 596; }
+.road-10 { top: 658px; left: 1216px; z-index: 658; }
 
 /* Floating Dock UI (Inventory) */
 .dock-ui {
