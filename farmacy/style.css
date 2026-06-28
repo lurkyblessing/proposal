@@ -504,11 +504,11 @@ nav {
     position: absolute;
     width: 500px;
     height: 500px;
-    top: 950px;
-    left: 100px;
+    top: 1050px;
+    left: 80px;
     transform: rotateX(60deg) rotateZ(-45deg);
     transform-style: preserve-3d;
-    z-index: 900;
+    z-index: 1050;
 }
 
 .farm-grid {
@@ -572,16 +572,15 @@ nav {
 
 /* =====================================================
    ROAD TILES 
-   The road tile is 150x87 in native isometric perspective.
-   We render at width: 120px (scaled to ~80% for good density).
-   The tile's native angle goes top-left to bottom-right.
+   Road tile is 150x87 native, rendered at 120px wide (~70px tall).
    
-   For seamless tiling along that diagonal:
-     dx ≈ 100px (horizontal step, ~83% of rendered width for overlap)  
-     dy ≈ 50px  (vertical step, ~half of horizontal for iso 2:1 ratio)
+   Seamless tiling formula:
+     dx = 110px, dy = 55px per step (2:1 isometric ratio)
+     This leaves ~10px overlap for seamless edge connection.
    
-   For the CROSS direction (top-right to bottom-left):
-     We mirror with scaleX(-1) and step dx = -100, dy = +50
+   Road A: Main diagonal (↘) starts (300, 280)
+   Road B: Cross diagonal (↙) starts (1000, 250), tiles mirrored
+   Road C: Parallel to A, starts (200, 700)
    ===================================================== */
 .road-tile {
     position: absolute;
@@ -591,44 +590,53 @@ nav {
 }
 
 /* --- Road A: Main diagonal (top-left → bottom-right) --- */
-.rd-a1  { top: 220px; left: 200px; }
-.rd-a2  { top: 270px; left: 300px; }
-.rd-a3  { top: 320px; left: 400px; }
-.rd-a4  { top: 370px; left: 500px; }
-.rd-a5  { top: 420px; left: 600px; }
-.rd-a6  { top: 470px; left: 700px; }
-.rd-a7  { top: 520px; left: 800px; }
-.rd-a8  { top: 570px; left: 900px; }
-.rd-a9  { top: 620px; left: 1000px; }
-.rd-a10 { top: 670px; left: 1100px; }
+.rd-a1  { top: 280px; left: 300px; }
+.rd-a2  { top: 335px; left: 410px; }
+.rd-a3  { top: 390px; left: 520px; }
+.rd-a4  { top: 445px; left: 630px; }
+.rd-a5  { top: 500px; left: 740px; }
+.rd-a6  { top: 555px; left: 850px; }
+.rd-a7  { top: 610px; left: 960px; }
+.rd-a8  { top: 665px; left: 1070px; }
+.rd-a9  { top: 720px; left: 1180px; }
+.rd-a10 { top: 775px; left: 1290px; }
 
 /* --- Road B: Cross diagonal (top-right → bottom-left, MIRRORED) --- */
 .rd-b1, .rd-b2, .rd-b3, .rd-b4,
 .rd-b5, .rd-b6, .rd-b7, .rd-b8 {
     transform: scaleX(-1);
 }
-.rd-b1  { top: 250px; left: 820px; }
-.rd-b2  { top: 300px; left: 720px; }
-.rd-b3  { top: 350px; left: 620px; }
-.rd-b4  { top: 400px; left: 520px; }
-.rd-b5  { top: 450px; left: 420px; }
-.rd-b6  { top: 500px; left: 320px; }
-.rd-b7  { top: 550px; left: 220px; }
-.rd-b8  { top: 600px; left: 120px; }
+.rd-b1  { top: 250px; left: 1000px; }
+.rd-b2  { top: 305px; left: 890px; }
+.rd-b3  { top: 360px; left: 780px; }
+.rd-b4  { top: 415px; left: 670px; }
+.rd-b5  { top: 470px; left: 560px; }
+.rd-b6  { top: 525px; left: 450px; }
+.rd-b7  { top: 580px; left: 340px; }
+.rd-b8  { top: 635px; left: 230px; }
 
-/* --- Road C: Second parallel road (lower, same direction as A) --- */
-.rd-c1  { top: 720px; left: 300px; }
-.rd-c2  { top: 770px; left: 400px; }
-.rd-c3  { top: 820px; left: 500px; }
-.rd-c4  { top: 870px; left: 600px; }
-.rd-c5  { top: 920px; left: 700px; }
-.rd-c6  { top: 970px; left: 800px; }
+/* --- Road C: Second parallel road (lower section) --- */
+.rd-c1  { top: 700px; left: 200px; }
+.rd-c2  { top: 755px; left: 310px; }
+.rd-c3  { top: 810px; left: 420px; }
+.rd-c4  { top: 865px; left: 530px; }
+.rd-c5  { top: 920px; left: 640px; }
+.rd-c6  { top: 975px; left: 750px; }
 
 /* =====================================================
    TOWN BUILDINGS
-   Placed in the open blocks BETWEEN roads, sized small
-   enough to fit within a "block" (like a city block).
-   Z-index matches vertical position for proper layering.
+   
+   Roads A and B intersect at approximately (620, 440).
+   This creates 4 "blocks" + 1 lower block:
+   
+   Block 1 (top-left of intersection):  Library
+   Block 2 (top-right of intersection): Factory  
+   Block 3 (bottom-left, below B):      Townhouse
+   Block 4 (bottom-right, below A):     Duplex
+   Block 5 (between B-end and C):       Bungalow
+   
+   Buildings are sized proportionally to road tiles.
+   Z-index follows vertical position for correct layering.
    ===================================================== */
 .asset-building {
     position: absolute;
@@ -637,40 +645,40 @@ nav {
     transition: transform 0.3s;
 }
 
-/* TOP-LEFT block (above main road, left side) */
-.asset-library    { width: 280px; top: 30px;  left: 350px; z-index: 30; }
+/* Block 1: Top-left — Library */
+.asset-library    { width: 220px; top: 50px;  left: 200px; z-index: 50; }
 
-/* TOP-RIGHT block (above main road, right side) */
-.asset-factory    { width: 200px; top: 80px;  left: 850px; z-index: 80; transform: scaleX(-1); }
+/* Block 2: Top-right — Factory (mirrored to face the road) */
+.asset-factory    { width: 180px; top: 60px;  left: 950px; z-index: 60; transform: scaleX(-1); }
 
-/* MIDDLE-LEFT block (between main road and cross road) */
-.asset-townhouse  { width: 160px; top: 380px; left: 100px; z-index: 380; }
+/* Block 3: Mid-left — Townhouse */
+.asset-townhouse  { width: 140px; top: 450px; left: 100px; z-index: 450; }
 
-/* MIDDLE block (intersection area, slightly right) */
-.asset-duplex     { width: 160px; top: 450px; left: 900px; z-index: 450; }
+/* Block 4: Mid-right — Duplex */
+.asset-duplex     { width: 140px; top: 480px; left: 1050px; z-index: 480; }
 
-/* LOWER block (between cross road and bottom road) */
-.asset-bungalow   { width: 140px; top: 680px; left: 1000px; z-index: 680; }
+/* Block 5: Lower-right — Bungalow */
+.asset-bungalow   { width: 130px; top: 680px; left: 900px; z-index: 680; }
 
 /* =====================================================
-   FARM BUILDINGS (Bottom-left corner)
+   FARM BUILDINGS (Bottom-left corner, below Road C)
    ===================================================== */
 .asset-barn {
     position: absolute;
-    width: 250px;
-    top: 800px;
+    width: 200px;
+    top: 850px;
     left: 50px;
-    z-index: 800;
+    z-index: 850;
     pointer-events: none;
     filter: drop-shadow(0 12px 12px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
     position: absolute;
-    width: 200px;
-    top: 850px;
-    left: 350px;
-    z-index: 850;
+    width: 170px;
+    top: 900px;
+    left: 300px;
+    z-index: 900;
     cursor: pointer;
     filter: drop-shadow(0 10px 10px rgba(0,0,0,0.35));
     transition: transform 0.2s, filter 0.2s;
