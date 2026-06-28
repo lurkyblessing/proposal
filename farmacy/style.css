@@ -622,7 +622,7 @@ nav {
 /* Base style for all buildings */
 .asset-building {
     position: absolute;
-    bottom: 0;
+    bottom: -35px; /* Shifted down to center the footprint in the block */
     left: 50%;
     transform: translateX(-50%);
     pointer-events: none;
@@ -639,7 +639,7 @@ nav {
 /* Farm Area assets */
 .asset-barn {
     position: absolute;
-    bottom: 0;
+    bottom: -35px;
     left: 50%;
     transform: translateX(-50%);
     width: 170px;
@@ -649,7 +649,7 @@ nav {
 
 .asset-lab {
     position: absolute;
-    bottom: 0;
+    bottom: -35px;
     left: 50%;
     transform: translateX(-50%);
     width: 150px;
