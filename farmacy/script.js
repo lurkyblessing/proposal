@@ -37,26 +37,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize Farm Plots
     if (farmGrid) {
-        const plots = 9;
-        for (let i = 0; i < plots; i++) {
-            const plot = document.createElement('div');
-            plot.className = 'plot empty';
-            plot.innerHTML = '<span class="seed-hint">Click to Plant</span>';
-            plot.addEventListener('click', () => handlePlotClick(plot));
-            farmGrid.appendChild(plot);
-        }
+       let isSwiping = false;
+
+    // Track mouse state globally for swiping mechanics
+    document.addEventListener('mousedown', () => isSwiping = true);
+    document.addEventListener('mouseup', () => isSwiping = false);
+    document.body.addEventListener('mouseleave', () => isSwiping = false);
+
+    function animateFlyingCrop(plot, emoji) {
+        // Create flying element
+        const flying = document.createElement('div');
+        flying.className = 'flying-crop';
+        flying.textContent = emoji;
+        document.body.appendChild(flying);
+        
+        // Get start coordinates (the plot)
+        const plotRect = plot.getBoundingClientRect();
+        flying.style.left = `${plotRect.left + plotRect.width/2 - 20}px`;
+        flying.style.top = `${plotRect.top - 20}px`;
+        
+        // Force reflow
+        flying.getBoundingClientRect();
+        
+        // Get target coordinates (the inventory panel)
+        const inventoryEl = document.getElementById('inventory');
+        const targetRect = inventoryEl.getBoundingClientRect();
+        
+        // Move to target
+        flying.style.left = `${targetRect.left + targetRect.width/2}px`;
+        flying.style.top = `${targetRect.top + targetRect.height/2}px`;
+        flying.style.transform = 'scale(0.5)';
+        flying.style.opacity = '0';
+        
+        // Cleanup after animation finishes
+        setTimeout(() => {
+            if (document.body.contains(flying)) {
+                document.body.removeChild(flying);
+            }
+        }, 500);
     }
 
-    function handlePlotClick(plot) {
+    function handlePlotInteraction(plot) {
         if (plot.classList.contains('empty')) {
-            // Plant a seed
+            // Plant
             plot.className = 'plot growing';
             plot.innerHTML = `
-                <div class="progress-bar"><div class="progress-fill"></div></div>
+                <span class="seed-hint">Growing...</span>
                 <span class="seed-icon">🌱</span>
+                <div class="progress-bar"><div class="progress-fill"></div></div>
             `;
             
-            // Pick random plant type
             const type = Math.random() > 0.5 ? 'moringa' : 'papaya';
             
             // Grow over 3 seconds
@@ -69,16 +99,48 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (plot.classList.contains('grown')) {
             // Harvest
             const type = plot.dataset.type;
+            const emoji = plot.dataset.emoji;
+            
+            // Trigger visual feedback
+            animateFlyingCrop(plot, emoji);
+            
             inventory[type]++;
             updateInventory();
             
             // Reset plot
             plot.className = 'plot empty';
-            plot.innerHTML = '<span class="seed-hint">Click to Plant</span>';
+            plot.innerHTML = '<span class="seed-hint">Swipe to Plant</span>';
             delete plot.dataset.type;
             delete plot.dataset.emoji;
         }
     }
+
+    // Initialize farm grid
+    for (let i = 0; i < 9; i++) {
+        const plot = document.createElement('div');
+        plot.className = 'plot empty';
+        plot.innerHTML = '<span class="seed-hint">Swipe to Plant</span>';
+        
+        // Allow both tap/click and swipe
+        plot.addEventListener('mousedown', (e) => {
+            e.preventDefault(); // Prevent text selection while dragging
+            handlePlotInteraction(plot);
+        });
+        
+        plot.addEventListener('mouseenter', () => {
+            plot.classList.add('hover-target');
+            if (isSwiping) {
+                handlePlotInteraction(plot);
+            }
+        });
+
+        plot.addEventListener('mouseleave', () => {
+            plot.classList.remove('hover-target');
+        });
+        
+        farmGrid.appendChild(plot);
+    }
+}
 
     function updateInventory() {
         if(!inventoryEl) return;

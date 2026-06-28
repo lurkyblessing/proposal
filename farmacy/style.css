@@ -518,39 +518,38 @@ nav {
 .farm-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
+    gap: 4px; /* Tightly packed */
+    background: #558b2f; /* Dark green lines between plots */
+    padding: 4px;
+    border-radius: 8px;
     transform: rotateX(60deg) rotateZ(-45deg); /* ISOMETRIC MAGIC */
     transform-style: preserve-3d;
     z-index: 2;
+    box-shadow: -5px 5px 0 #33691e, -10px 10px 20px rgba(0,0,0,0.3); /* 3D depth for the entire field instead of individual plots */
 }
 
 .plot {
     width: 100px;
     height: 100px;
-    background: #8d6e63; /* Dirt color */
-    border-radius: 10px;
+    background: #795548; /* Tilled dirt color */
+    border-radius: 4px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     position: relative;
-    box-shadow: -5px 5px 0 #4e342e, -10px 10px 15px rgba(0,0,0,0.4); /* 3D Depth */
-    transition: transform 0.1s, box-shadow 0.1s;
-    border: 2px solid #5d4037;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.4); /* Inner depth for tilled soil */
+    border: 1px solid #5d4037;
+    transition: background 0.2s;
+}
+
+.plot:hover, .plot.hover-target {
+    background: #8d6e63;
 }
 
 .plot::after {
-    content: '';
-    position: absolute;
-    top: 5px; left: 5px; right: 5px; bottom: 5px;
-    background: #795548;
-    border-radius: 5px;
-}
-
-.plot:active {
-    transform: translate(-3px, 3px);
-    box-shadow: -2px 2px 0 #4e342e, -5px 5px 10px rgba(0,0,0,0.4);
+    /* Removed the individual 3D block pseudo-element to make it a flat field */
+    display: none;
 }
 
 /* Stand elements upright against the isometric rotation */
@@ -616,13 +615,23 @@ nav {
     position: absolute;
     transform: rotateZ(45deg) rotateX(-60deg) translateY(-20px);
     z-index: 10;
-    animation: bounce 0.5s ease;
+    animation: bounce 1s infinite ease-in-out alternate;
     filter: drop-shadow(0 10px 5px rgba(0,0,0,0.3));
 }
 
 @keyframes bounce {
-    0%, 100% { transform: rotateZ(45deg) rotateX(-60deg) translateY(-20px); }
-    50% { transform: rotateZ(45deg) rotateX(-60deg) translateY(-40px); }
+    from { transform: rotateZ(45deg) rotateX(-60deg) translateY(-15px); }
+    to { transform: rotateZ(45deg) rotateX(-60deg) translateY(-30px); }
+}
+
+/* Flying Crop Animation */
+.flying-crop {
+    position: fixed;
+    font-size: 3rem;
+    z-index: 9999;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
 }
 
 /* Modal */
