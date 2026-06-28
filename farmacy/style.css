@@ -484,20 +484,29 @@ nav {
     border-radius: 20px;
     border: 4px solid #388e3c;
     box-shadow: inset 0 0 50px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
-    overflow: hidden;
-    min-height: 500px;
+    overflow: auto; /* Allow scrolling the big map */
+    height: 700px; /* Viewport height */
+}
+
+/* The actual big map */
+.isometric-world {
+    width: 1600px;
+    height: 1200px;
+    position: relative;
+    margin: 0 auto;
+    /* Optional: scale(0.8) if we want to zoom out by default */
 }
 
 .scenery-container {
-    position: relative;
+    position: absolute;
     width: 600px;
     height: 600px;
+    top: 600px;
+    left: 200px;
     transform: rotateX(60deg) rotateZ(-45deg); /* Isometric world */
     transform-style: preserve-3d;
+    z-index: 50; /* Farm grid sits fairly low */
 }
 
 /* 3D Farm Grid (Dirt Mounds) */
@@ -564,36 +573,38 @@ nav {
 /* Town Buildings */
 .asset-building {
     position: absolute;
-    z-index: 10;
     pointer-events: none;
-    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
+    filter: drop-shadow(0 20px 20px rgba(0,0,0,0.4));
     transition: transform 0.3s;
 }
 
-/* Arrange the town along a central diagonal road */
-.asset-library { width: 350px; top: 2%; left: 35%; z-index: 5; }
-.asset-factory { width: 280px; top: 15%; left: 55%; z-index: 6; }
-.asset-townhouse { width: 200px; top: 35%; left: 30%; z-index: 8; }
-.asset-duplex { width: 200px; top: 45%; left: 45%; z-index: 9; }
-.asset-bungalow { width: 180px; top: 55%; left: 60%; z-index: 10; }
+/* 
+Z-Index rule for Isometric 2D: 
+Elements lower on the Y-axis (higher top value) must have a higher z-index.
+*/
+.asset-library { width: 500px; top: 50px; left: 550px; z-index: 10; }
+.asset-factory { width: 400px; top: 150px; left: 1050px; z-index: 20; transform: scaleX(-1); /* Face left */ }
+.asset-townhouse { width: 280px; top: 350px; left: 400px; z-index: 40; }
+.asset-duplex { width: 280px; top: 480px; left: 700px; z-index: 50; }
+.asset-bungalow { width: 250px; top: 600px; left: 950px; z-index: 60; }
 
 /* Relocate Farm to the bottom-left corner */
 .asset-barn {
     position: absolute;
-    width: 320px;
-    top: 60%;
-    left: 5%;
-    z-index: 12;
+    width: 450px;
+    top: 650px;
+    left: 50px;
+    z-index: 70;
     pointer-events: none;
     filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
     position: absolute;
-    width: 220px;
-    top: 65%;
-    left: 28%;
-    z-index: 12;
+    width: 300px;
+    top: 750px;
+    left: 450px;
+    z-index: 80;
     cursor: pointer;
     filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
     transition: transform 0.2s, filter 0.2s;
@@ -607,19 +618,20 @@ nav {
 /* Road Network */
 .road-tile {
     position: absolute;
-    width: 150px; /* Adjust based on actual image size */
+    width: 250px; /* Big enough to link the town */
     z-index: 2; /* Below buildings, above grass */
     pointer-events: none;
 }
 
-/* Creating a diagonal road path */
-.road-1 { top: 20%; left: 45%; }
-.road-2 { top: 30%; left: 40%; }
-.road-3 { top: 40%; left: 35%; }
-.road-4 { top: 50%; left: 30%; }
-.road-5 { top: 60%; left: 25%; }
-.road-6 { top: 70%; left: 20%; }
-.road-7 { top: 80%; left: 15%; }
+/* Creating a diagonal road path from Top-Left to Bottom-Right */
+/* Isometric diagonal roughly follows dx = 2 * dy */
+.road-1 { top: 250px; left: 300px; }
+.road-2 { top: 325px; left: 450px; }
+.road-3 { top: 400px; left: 600px; }
+.road-4 { top: 475px; left: 750px; }
+.road-5 { top: 550px; left: 900px; }
+.road-6 { top: 625px; left: 1050px; }
+.road-7 { top: 700px; left: 1200px; }
 
 /* Floating Dock UI (Inventory) */
 .dock-ui {
