@@ -561,24 +561,40 @@ nav {
     );
 }
 
-/* Image Assets (Barn and Lab) */
+/* Town Buildings */
+.asset-building {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
+    transition: transform 0.3s;
+}
+
+/* Arrange the town along a central diagonal road */
+.asset-library { width: 350px; top: 2%; left: 35%; z-index: 5; }
+.asset-factory { width: 280px; top: 15%; left: 55%; z-index: 6; }
+.asset-townhouse { width: 200px; top: 35%; left: 30%; z-index: 8; }
+.asset-duplex { width: 200px; top: 45%; left: 45%; z-index: 9; }
+.asset-bungalow { width: 180px; top: 55%; left: 60%; z-index: 10; }
+
+/* Relocate Farm to the bottom-left corner */
 .asset-barn {
     position: absolute;
-    width: 350px;
-    top: 5%;
-    left: 10%;
-    z-index: 10;
-    pointer-events: none; /* Just scenery */
+    width: 320px;
+    top: 60%;
+    left: 5%;
+    z-index: 12;
+    pointer-events: none;
     filter: drop-shadow(0 20px 20px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
     position: absolute;
-    width: 250px;
-    top: 15%;
-    right: 10%;
-    z-index: 10;
-    cursor: pointer; /* Clickable */
+    width: 220px;
+    top: 65%;
+    left: 28%;
+    z-index: 12;
+    cursor: pointer;
     filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
     transition: transform 0.2s, filter 0.2s;
 }
@@ -587,6 +603,23 @@ nav {
     transform: scale(1.05) translateY(-5px);
     filter: drop-shadow(0 25px 20px rgba(0,0,0,0.5)) brightness(1.1);
 }
+
+/* Road Network */
+.road-tile {
+    position: absolute;
+    width: 150px; /* Adjust based on actual image size */
+    z-index: 2; /* Below buildings, above grass */
+    pointer-events: none;
+}
+
+/* Creating a diagonal road path */
+.road-1 { top: 20%; left: 45%; }
+.road-2 { top: 30%; left: 40%; }
+.road-3 { top: 40%; left: 35%; }
+.road-4 { top: 50%; left: 30%; }
+.road-5 { top: 60%; left: 25%; }
+.road-6 { top: 70%; left: 20%; }
+.road-7 { top: 80%; left: 15%; }
 
 /* Floating Dock UI (Inventory) */
 .dock-ui {
