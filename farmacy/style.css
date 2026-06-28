@@ -518,33 +518,42 @@ nav {
 .farm-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 4px; /* Tightly packed */
-    background: #558b2f; /* Dark green lines between plots */
-    padding: 4px;
-    border-radius: 8px;
+    gap: 0; /* Absolutely no gaps */
+    background: #795548; /* Dirt background */
+    padding: 0;
+    border-radius: 12px;
+    border: 6px solid #4e342e; /* Dark dirt border for the whole field */
     transform: rotateX(60deg) rotateZ(-45deg); /* ISOMETRIC MAGIC */
     transform-style: preserve-3d;
     z-index: 2;
-    box-shadow: -5px 5px 0 #33691e, -10px 10px 20px rgba(0,0,0,0.3); /* 3D depth for the entire field instead of individual plots */
+    box-shadow: -6px 6px 0 #3e2723, -15px 15px 30px rgba(0,0,0,0.4); /* Chunky 3D depth for the field */
 }
 
 .plot {
     width: 100px;
     height: 100px;
     background: #795548; /* Tilled dirt color */
-    border-radius: 4px;
+    border-radius: 0; /* Square to be seamless */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    box-shadow: inset 0 0 15px rgba(0,0,0,0.4); /* Inner depth for tilled soil */
-    border: 1px solid #5d4037;
-    transition: background 0.2s;
+    /* Simulate tilled rows with repeating linear gradient */
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 18px,
+        rgba(0,0,0,0.1) 18px,
+        rgba(0,0,0,0.1) 20px
+    );
+    border: 1px solid rgba(93, 64, 55, 0.5); /* Very subtle internal grid lines */
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.2); /* Deepen each plot slightly */
+    transition: filter 0.2s;
 }
 
 .plot:hover, .plot.hover-target {
-    background: #8d6e63;
+    filter: brightness(1.15); /* Highlight the plot being swiped over */
 }
 
 .plot::after {

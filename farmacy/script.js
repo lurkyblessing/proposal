@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         plot.className = 'plot empty';
         plot.innerHTML = '<span class="seed-hint">Swipe to Plant</span>';
         
-        // Allow both tap/click and swipe
+        // Desktop mouse support
         plot.addEventListener('mousedown', (e) => {
             e.preventDefault(); // Prevent text selection while dragging
             handlePlotInteraction(plot);
@@ -140,6 +140,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         farmGrid.appendChild(plot);
     }
+    
+    // Mobile Touch Support for swiping across plots
+    farmGrid.addEventListener('touchmove', (e) => {
+        e.preventDefault(); // Prevent page scrolling while swiping
+        const touch = e.touches[0];
+        // Find element under finger
+        const target = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (target && target.closest('.plot')) {
+            const plot = target.closest('.plot');
+            plot.classList.add('hover-target');
+            // If the plot hasn't been recently interacted with during this swipe
+            if (!plot.dataset.swipeLocked) {
+                handlePlotInteraction(plot);
+                plot.dataset.swipeLocked = "true";
+                // Unlock after swipe ends
+                setTimeout(() => delete plot.dataset.swipeLocked, 500);
+            }
+        }
+    }, { passive: false });
+    
+    farmGrid.addEventListener('touchend', () => {
+        document.querySelectorAll('.plot').forEach(p => p.classList.remove('hover-target'));
+    });
 }
 
     function updateInventory() {
