@@ -599,82 +599,82 @@ nav {
 }
 
 /* =====================================================
-   TOWN BLOCKS & BUILDINGS
+   TOWN BLOCKS & BUILDINGS (2D Projected)
    ===================================================== */
-/* The blocks represent the empty space between the roads */
+/* Blocks are now just zero-size anchors placed at the exact center of each city block */
 .block {
     position: absolute;
-    width: 210px;
-    height: 160px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform-style: preserve-3d;
+    width: 0;
+    height: 0;
 }
 
-/* 9 City Blocks inside the 800x650 road grid */
-.b-0-0 { left: 40px; top: 40px; }
-.b-1-0 { left: 290px; top: 40px; }
-.b-2-0 { left: 540px; top: 40px; }
-
-.b-0-1 { left: 40px; top: 240px; }
-.b-1-1 { left: 290px; top: 240px; }
-.b-2-1 { left: 540px; top: 240px; }
-
-.b-0-2 { left: 40px; top: 440px; }
-.b-1-2 { left: 290px; top: 440px; }
-.b-2-2 { left: 540px; top: 440px; }
-
-/* 
-   REVERSE TRANSFORM: 
-   Because the road grid is rotated into isometric view (rotateX 60, rotateZ -45),
-   anything flat inside it lies on the ground.
-   To make 2D sprite buildings "stand up" and face the camera, we apply the 
-   exact inverse rotation.
-*/
-.stand-up {
-    transform-origin: center center;
-    transform: rotateZ(45deg) rotateX(-60deg) scale(1.4); /* Scaled slightly for prominence */
-}
+/* Projected Building Positions from road grid */
+.b-0-0 { left: 274.7px; top: 517.7px; z-index: 517; }
+.b-1-0 { left: 451.5px; top: 429.3px; z-index: 429; }
+.b-2-0 { left: 628.3px; top: 340.9px; z-index: 340; }
+.b-0-1 { left: 416.2px; top: 588.4px; z-index: 588; }
+.b-1-1 { left: 592.9px; top: 500.0px; z-index: 500; }
+.b-2-1 { left: 769.7px; top: 411.6px; z-index: 411; }
+.b-0-2 { left: 557.6px; top: 659.1px; z-index: 659; }
+.b-1-2 { left: 734.4px; top: 570.7px; z-index: 570; }
+.b-2-2 { left: 911.1px; top: 482.3px; z-index: 482; }
 
 /* Base style for all buildings */
 .asset-building {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     pointer-events: none;
     filter: drop-shadow(0 15px 15px rgba(0,0,0,0.4));
-    transition: transform 0.3s;
 }
 
 /* Custom sizes for each building to fit its block */
-.asset-library { width: 180px; }
-.asset-factory { width: 140px; }
-.asset-townhouse { width: 110px; }
-.asset-duplex { width: 110px; }
-.asset-bungalow { width: 100px; }
+.asset-library { width: 220px; }
+.asset-factory { width: 180px; }
+.asset-townhouse { width: 140px; }
+.asset-duplex { width: 140px; }
+.asset-bungalow { width: 130px; }
 
 /* Farm Area assets */
 .asset-barn {
-    width: 140px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px;
     pointer-events: none;
     filter: drop-shadow(0 15px 15px rgba(0,0,0,0.3));
 }
 
 .asset-lab {
-    width: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
     cursor: pointer;
     filter: drop-shadow(0 10px 10px rgba(0,0,0,0.35));
     transition: transform 0.2s, filter 0.2s;
 }
 
 .asset-lab:hover {
-    transform: scale(1.05) translateY(-5px);
+    transform: translateX(-50%) scale(1.05) translateY(-5px);
     filter: drop-shadow(0 20px 15px rgba(0,0,0,0.45)) brightness(1.1);
 }
 
-/* The Farm Grid itself sits directly flat on the ground in the bottom right block */
+/* The Farm Grid itself is rendered in 3D but anchored in 2D space */
+#farm-grid-container {
+    perspective: 1000px; /* needed to give depth to the grid inside */
+}
+
 #farm-grid {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotateX(60deg) rotateZ(-45deg);
+    width: 250px;
+    height: 250px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
