@@ -218,11 +218,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const labBuilding = document.getElementById('lab-building');
+    const labMenuModal = document.getElementById('lab-menu-modal');
+    const closeLabBtn = document.getElementById('close-lab-btn');
+
+    if (labBuilding) {
+        labBuilding.addEventListener('click', () => {
+            labMenuModal.style.display = 'flex';
+        });
+    }
+
+    if (closeLabBtn) {
+        closeLabBtn.addEventListener('click', () => {
+            labMenuModal.style.display = 'none';
+        });
+    }
+
     if (craftBtn) {
         craftBtn.addEventListener('click', () => {
             // Craft!
             labContents = [];
             updateLab();
+            labMenuModal.style.display = 'none';
             craftModal.style.display = 'flex';
         });
     }
