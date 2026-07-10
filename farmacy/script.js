@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Reset plot
             plot.className = 'plot empty';
-            plot.innerHTML = '<div class="dirt-mound"></div>';
+            plot.innerHTML = '';
             delete plot.dataset.type;
             delete plot.dataset.emoji;
         }
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < 9; i++) {
         const plot = document.createElement('div');
         plot.className = 'plot empty';
-        plot.innerHTML = '<div class="dirt-mound"></div>';
+        plot.innerHTML = '';
         
         // Desktop mouse support
         plot.addEventListener('mousedown', (e) => {
