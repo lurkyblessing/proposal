@@ -218,12 +218,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const labBuilding = document.getElementById('lab-building');
+    const labOverlay = document.getElementById('overlay-lab');
     const labMenuModal = document.getElementById('lab-menu-modal');
     const closeLabBtn = document.getElementById('close-lab-btn');
 
-    if (labBuilding) {
-        labBuilding.addEventListener('click', () => {
+    if (labOverlay) {
+        labOverlay.addEventListener('click', () => {
             labMenuModal.style.display = 'flex';
         });
     }
