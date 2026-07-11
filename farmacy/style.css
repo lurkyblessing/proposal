@@ -1,9 +1,50 @@
 :root {
-    --farmacy-green: #4caf50;
-    --farmacy-light: #e8f5e9;
+    --farmacy-green: #33691e;
+    --farmacy-light: #f1f8e9;
     --farmacy-dark: #1b5e20;
     --farmacy-yellow: #fbc02d;
-    --text-main: #333;
+    --text-main: #3e2723;
+    
+    --farmacy-sans: 'Plus Jakarta Sans', sans-serif;
+    --farmacy-serif: 'Tenor Sans', sans-serif;
+    --farmacy-script: 'Pinyon Script', cursive;
+}
+
+/* =====================================================
+   CAMPAIGN HEADERS
+   ===================================================== */
+.campaign-header {
+    text-align: center;
+    padding: 6rem 2rem 2rem 2rem;
+    background: #fff;
+}
+
+.campaign-number {
+    display: block;
+    font-size: 2.5rem;
+    color: var(--farmacy-green);
+    margin-bottom: 0.5rem;
+}
+
+.accent-script {
+    font-family: var(--farmacy-script);
+}
+
+.campaign-title {
+    font-family: var(--farmacy-serif);
+    font-size: 3.5rem;
+    color: var(--farmacy-dark);
+    margin-bottom: 1rem;
+    letter-spacing: -0.5px;
+}
+
+.campaign-subtitle {
+    font-family: var(--farmacy-sans);
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 * {
@@ -13,7 +54,7 @@
 }
 
 body {
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--farmacy-sans);
     background-color: #fff;
     color: var(--text-main);
     overflow-x: hidden;
@@ -41,7 +82,7 @@ nav {
 }
 
 .logo {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
     font-size: 2rem;
     font-weight: 600;
     color: var(--farmacy-dark);
@@ -123,7 +164,7 @@ nav {
 }
 
 .slider-panel h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
     font-size: 3.5rem;
     line-height: 1.1;
     margin-bottom: 1.5rem;
@@ -186,7 +227,7 @@ nav {
 }
 
 .cart-header h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
     font-size: 2.5rem;
     color: var(--farmacy-dark);
     margin-bottom: 1rem;
@@ -250,7 +291,7 @@ nav {
     color: var(--farmacy-dark);
     text-align: center;
     margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
 }
 
 .strategy-intro {
@@ -295,7 +336,7 @@ nav {
     font-size: 1.4rem;
     color: var(--farmacy-dark);
     margin-bottom: 1rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
 }
 
 .strategy-card p {
@@ -320,7 +361,7 @@ nav {
 }
 
 .game-header h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
     font-size: 3rem;
     color: var(--farmacy-dark);
     margin-bottom: 1rem;
@@ -355,7 +396,7 @@ nav {
     padding: 15px 30px;
     border-radius: 20px;
     font-size: 1.8rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--farmacy-serif);
     margin: -50px auto 20px auto;
     width: fit-content;
     box-shadow: 0 10px 20px rgba(76, 175, 80, 0.4);
@@ -434,7 +475,7 @@ nav {
     border-radius: 15px;
     background: linear-gradient(to bottom, #aed581, #689f38);
     color: white;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--farmacy-sans);
     font-size: 1.2rem;
     font-weight: 700;
     text-transform: uppercase;
