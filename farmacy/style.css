@@ -89,121 +89,208 @@ nav {
     letter-spacing: 2px;
 }
 
-/* Slider Hero Section */
-.slider-hero {
+/* =====================================================
+   CAMPAIGN 01: BLENDER SCROLL ANIMATION
+   ===================================================== */
+.blender-campaign {
+    height: 400vh; /* Creates the scrollable track */
+    position: relative;
+    background: linear-gradient(to bottom, #f9fbf9, #e8f5e9);
+}
+
+.blender-stage {
+    position: sticky;
+    top: 0;
     height: 100vh;
-    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
-    background: #f0f4f8; /* Science background */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 4rem;
 }
 
-.slider-container {
-    width: 100%;
-    height: 100%;
+/* Left Side: Visuals */
+.blender-visuals {
+    flex: 1;
+    height: 600px;
     position: relative;
-}
-
-.slider-panel {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 5rem;
 }
 
-.science-panel {
-    background: #f0f4f8;
-    color: #2c3e50;
-    text-align: right;
-    justify-content: flex-end;
-}
-
-.nature-panel {
-    background: var(--farmacy-light);
-    color: var(--farmacy-dark);
-    text-align: left;
-    justify-content: flex-start;
-    width: 50%; /* Initial split */
-    overflow: hidden;
-    border-right: 4px solid var(--farmacy-green);
-}
-
-.panel-content {
-    max-width: 500px;
-    min-width: 500px; /* Prevent text wrapping during slide */
-}
-
-.science-panel .panel-content {
-    margin-right: 10vw;
-}
-
-.nature-panel .panel-content {
-    margin-left: 10vw;
-}
-
-.badge {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
-}
-
-.science-panel .badge {
-    background: #e1e8ed;
-    color: #34495e;
-}
-
-.nature-panel .badge {
-    background: var(--farmacy-green);
-    color: white;
-}
-
-.slider-panel h2 {
-    font-family: var(--farmacy-serif);
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-}
-
-.slider-panel p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    opacity: 0.9;
-}
-
-.slider-handle {
+/* Ingredients */
+.drop-ingredient {
+    font-size: 4rem;
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 4px;
-    background: transparent;
-    cursor: ew-resize;
+    top: -100px;
+    opacity: 0;
     z-index: 10;
-    transform: translateX(-50%);
+}
+.moringa { left: 30%; }
+.papaya { left: 50%; transform: translateX(-50%); }
+.sunflower { left: 70%; transform: translateX(-100%); }
+
+/* Blender Design */
+.blender-machine {
+    position: absolute;
+    bottom: 50px;
+    width: 200px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.slider-button {
+.blender-jar {
+    width: 160px;
+    height: 220px;
+    background: rgba(255, 255, 255, 0.4);
+    border: 4px solid rgba(255, 255, 255, 0.8);
+    border-radius: 10px 10px 40px 40px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 2;
+}
+
+.blender-jar::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 20px;
+    background: #333;
+    border-radius: 10px;
+}
+
+.blender-liquid {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0%; /* Animates to 100% */
+    background: linear-gradient(to top, #81c784, #aed581);
+    opacity: 0.8;
+}
+
+.blender-base {
+    width: 200px;
+    height: 120px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin-top: -10px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blender-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 4px solid #fff;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Final Product (Green Clean Jar) */
+.final-product-jar {
+    position: absolute;
+    bottom: 100px;
+    width: 180px;
+    height: 180px;
+    background: url('green_clean.jpg') center/cover no-repeat;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: scale(0.5) translateY(100px);
+    z-index: 3;
+}
+
+/* Right Side: Pitch Cards */
+.blender-pitch {
+    flex: 1;
+    position: relative;
+    height: 600px;
+}
+
+.pitch-card {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
-    background: var(--farmacy-green);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    left: 0;
+    transform: translateY(-50%) translateX(50px);
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    opacity: 0;
     pointer-events: none;
+}
+
+.pitch-meta {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.pitch-title {
+    font-family: var(--farmacy-serif);
+    font-size: 2rem;
+    color: var(--farmacy-dark);
+    margin-bottom: 1rem;
+}
+
+.pitch-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.tools-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tools-list li {
+    font-weight: 600;
+    color: var(--farmacy-green);
+    background: rgba(255,255,255,0.5);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+@media (max-width: 900px) {
+    .blender-stage {
+        flex-direction: column;
+    }
+    .blender-visuals, .blender-pitch {
+        width: 100%;
+        height: 50vh;
+    }
+    .pitch-card {
+        padding: 1.5rem;
+    }
 }
 
 /* Shopping Cart Section */

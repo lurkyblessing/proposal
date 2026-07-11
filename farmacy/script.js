@@ -1,21 +1,75 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Slider Hero Logic ---
-    const sliderHandle = document.getElementById('slider-handle');
-    const naturePanel = document.getElementById('nature-panel');
-    let isDragging = false;
+    // --- Blender Campaign Scrollytelling Logic ---
+    const blenderCampaign = document.querySelector('.blender-campaign');
+    if (blenderCampaign) {
+        window.addEventListener('scroll', () => {
+            const rect = blenderCampaign.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            // Calculate progress (0 to 1) while the stage is sticky
+            const scrollDistance = rect.height - windowHeight;
+            let progress = -rect.top / scrollDistance;
+            progress = Math.max(0, Math.min(1, progress));
 
-    if (sliderHandle && naturePanel) {
-        sliderHandle.addEventListener('mousedown', () => isDragging = true);
-        window.addEventListener('mouseup', () => isDragging = false);
-        window.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            const container = sliderHandle.parentElement;
-            const rect = container.getBoundingClientRect();
-            let x = e.clientX - rect.left;
-            x = Math.max(0, Math.min(x, rect.width));
-            let percentage = (x / rect.width) * 100;
-            naturePanel.style.width = `${percentage}%`;
-            sliderHandle.style.left = `${percentage}%`;
+            // Pitch Cards
+            const cardConcept = document.getElementById('pitch-concept');
+            const cardGoals = document.getElementById('pitch-goals');
+            const cardSetup = document.getElementById('pitch-setup');
+
+            // Visuals
+            const moringa = document.getElementById('drop-moringa');
+            const papaya = document.getElementById('drop-papaya');
+            const sunflower = document.getElementById('drop-sunflower');
+            const blenderMachine = document.getElementById('blender-machine');
+            const blenderLiquid = document.getElementById('blender-liquid');
+            const finalProduct = document.getElementById('final-product-jar');
+
+            // Phase 1: Ingredients Drop (0 to 0.3)
+            if (progress > 0.05 && progress <= 0.35) cardConcept.classList.add('active'); 
+            else cardConcept.classList.remove('active');
+            
+            // Drop animation (transform translateY)
+            let dropY = Math.min(1, progress / 0.25) * 250; // drops 250px
+            moringa.style.transform = `translateY(${dropY}px)`;
+            papaya.style.transform = `translateX(-50%) translateY(${Math.max(0, dropY - 20)}px)`;
+            sunflower.style.transform = `translateX(-100%) translateY(${Math.max(0, dropY - 40)}px)`;
+            moringa.style.opacity = progress > 0.01 && progress < 0.3 ? 1 : 0;
+            papaya.style.opacity = progress > 0.05 && progress < 0.3 ? 1 : 0;
+            sunflower.style.opacity = progress > 0.1 && progress < 0.3 ? 1 : 0;
+
+            // Phase 2: Blending (0.3 to 0.6)
+            if (progress > 0.35 && progress <= 0.65) cardGoals.classList.add('active'); 
+            else cardGoals.classList.remove('active');
+            
+            if (progress >= 0.3 && progress < 0.6) {
+                // Shake blender
+                let shake = (Math.random() * 4 - 2) + "px";
+                blenderMachine.style.transform = `translate(${shake}, ${shake})`;
+                
+                // Fill liquid
+                let fill = ((progress - 0.3) / 0.3) * 100;
+                blenderLiquid.style.height = `${fill}%`;
+            } else {
+                blenderMachine.style.transform = 'translate(0, 0)';
+                if (progress < 0.3) blenderLiquid.style.height = '0%';
+            }
+
+            // Phase 3: The Reveal (0.6 to 1)
+            if (progress > 0.65) cardSetup.classList.add('active'); 
+            else cardSetup.classList.remove('active');
+
+            if (progress >= 0.6) {
+                blenderMachine.style.opacity = 0;
+                finalProduct.style.opacity = 1;
+                
+                // Pop up animation
+                let pop = Math.min(1, (progress - 0.6) / 0.2);
+                finalProduct.style.transform = `scale(${0.5 + (0.5 * pop)}) translateY(${100 - (100 * pop)}px)`;
+            } else {
+                blenderMachine.style.opacity = 1;
+                finalProduct.style.opacity = 0;
+                finalProduct.style.transform = `scale(0.5) translateY(100px)`;
+            }
         });
     }
 
